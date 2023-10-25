@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Surveyy Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightblue;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: floralwhite;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex; 
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"] {
+            flex: 1; 
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input[type="email"] {
+            margin-left: 10px; 
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .form-actions {
+            text-align: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: mediumblue;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <center>
+        <h1>Customer Survey Form</h1>
+        </center>
+        <form id="surveyForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+                <label for="name">Email:</label>
+                <input type="text" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select id="country" required>
+                    <option value="">Select Country</option>
+                    <option value="IN">India</option>
+                    <option value="ca">Canada</option>
+                    <option value="uk">United Kingdom</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <input type="checkbox" id="male" name="gender" value="male">
+                <label for="male">Male</label>
+                <input type="checkbox" id="female" name="gender" value="female">
+                <label for="female">Female</label>
+            </div>
+            <div class="form-group">
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn" onclick="submitForm()">Submit</button>
+                <button type="button" class="btn" onclick="resetForm()">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content" id="popupContent">
+            <h2>Survey Submission</h2>
+            <div id="submittedData"></div>
+            <button type="button" class="btn" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+
+    <script>
+        function submitForm() {
+            
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const dob = document.getElementById("dob").value;
+            const country = document.getElementById("country").value;
+            const gender = Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(checkbox => checkbox.value);
+            const profession = document.getElementById("profession").value;
+            const mobile = document.getElementById("mobile").value;
+
+            
+            if (!name || !email || !dob || !country || gender.length === 0 || !profession || !mobile) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+          
+            const submittedData = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Date of Birth:</strong> ${dob}</p>
+                <p><strong>Country:</strong> ${country}</p>
+                <p><strong>Gender:</strong> ${gender.join(", ")}</p>
+                <p><strong>Profession:</strong> ${profession}</p>
+                <p><strong>Mobile Number:</strong> ${mobile}</p>
+            `;
+            document.getElementById("submittedData").innerHTML = submittedData;
+
+            document.getElementById("popup").style.display = "flex";
+        }
+
+        function resetForm() {
+            document.getElementById("surveyForm").reset();
+        }
+
+        function closePopup() {
+            
+            document.getElementById("popup").style.display = "none";
+
+            
+            resetForm();
+        }
+    </script>
+
+</body>
+</html>

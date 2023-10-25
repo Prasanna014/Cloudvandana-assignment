@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: white; 
+        }
+
+        .calculator {
+            border: 1px solid #333;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background-color: white; 
+        }
+
+        #display-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #display {
+            width: 130%; 
+            padding: 10px;
+            font-size: 24px;
+            background-color: white;
+            color: black;
+        }
+
+        .clear-button {
+            width: 30%; 
+            padding: 10px;
+            font-size: 20px;
+            background-color: #489B7E;
+
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+           
+        }
+
+        button {
+            width: 75px;
+            height: 55px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: black;
+            color: white;
+        }
+
+        
+        #subtract-button {
+            background-color: red; 
+            color: white; 
+            font-size: 20px; 
+        }
+
+        
+        .operation-button {
+            background-color: grey; 
+            color: white; 
+            font-size: 18px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div id="display-container">
+            <input type="text" id="display" readonly>
+            <button onclick="clearDisplay()" class="clear-button">AC</button>
+        </div>
+        <div class="buttons">
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            
+            <button class="operation-button" onclick="appendToDisplay('+')">+</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button class="operation-button" onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button class="operation-button" onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button class="operation-button" onclick="calculate()" style="background-color: black;">=</button>
+            <button class="operation-button" onclick="appendToDisplay('/')">/</button>
+        </div>
+    </div>
+
+    <script>
+        let displayValue = '';
+
+        function appendToDisplay(value) {
+            displayValue += value;
+            document.getElementById('display').value = displayValue;
+        }
+
+        function clearDisplay() {
+            displayValue = '';
+            document.getElementById('display').value = displayValue;
+        }
+
+        function calculate() {
+            try {
+                displayValue = eval(displayValue).toString();
+                document.getElementById('display').value = displayValue;
+            } catch (error) {
+                displayValue = 'Error';
+                document.getElementById('display').value = displayValue;
+            }
+        }
+    </script>
+</body>
+</html>
